@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <TBT_Producthistory>
+            <active>true</active>
+            <codePool>community</codePool>
+        </TBT_Producthistory>
+    </modules>
+</config>

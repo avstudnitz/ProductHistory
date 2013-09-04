@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+    <producthistoryadmin_adminhtml_index_historyajax>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="producthistory/adminhtml_catalog_product_edit_tab_revision_grid" name="catalog.product.edit.tab.history"/>
+        </block>
+    </producthistoryadmin_adminhtml_index_historyajax>
+</layout>
