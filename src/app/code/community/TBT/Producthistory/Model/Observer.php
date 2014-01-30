@@ -35,6 +35,9 @@ class TBT_Producthistory_Model_Observer
             'data_hash' => $revisionDataHash,
             'revision_date' => $revisionDate->get(Zend_Date::ISO_8601),
         );
+        if (Mage::getSingleton('admin/session')->isLoggedIn()) {
+            $revisionData['admin_user_id'] = Mage::getSingleton('admin/session')->getUser()->getId();
+        }
 
         $revision = Mage::getModel('producthistory/revision');
 
@@ -127,7 +130,10 @@ class TBT_Producthistory_Model_Observer
                 return $product->getAttributeText($attribute->getAttributeCode());
 
             case 'multiselect':
-                return implode(', ', $product->getAttributeText($attribute->getAttributeCode()));
+                $value = $product->getAttributeText($attribute->getAttributeCode());
+                if (is_array($value)) {
+                    return implode(', ', $value);
+                }
 
             case 'price':
                 return Mage::helper('core')->formatPrice($rawAttributeValue, false);
@@ -151,5 +157,7 @@ class TBT_Producthistory_Model_Observer
             case 'text':
                 return $rawAttributeValue;
         }
+
+        return '';
     }
 }

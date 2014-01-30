@@ -59,6 +59,15 @@ class TBT_Producthistory_Block_Adminhtml_Catalog_Product_Edit_Tab_Revision_Grid 
             'type'      => 'datetime'
         ));
         
+        // Admin user
+        $this->addColumn('admin_user_id', array(
+            'header'    => Mage::helper('producthistory')->__('Admin User'),
+            'align'     => 'left',
+            'index'     => 'admin_user_id',
+            'type'      => 'options',
+            'options'   => $this->_getAdminUserNames()
+        ));
+
         // Data
         /*$this->addColumn('data_hash', array(
             'header'    => Mage::helper('producthistory')->__('Data'),
@@ -132,5 +141,18 @@ class TBT_Producthistory_Block_Adminhtml_Catalog_Product_Edit_Tab_Revision_Grid 
     public function isHidden()
     {
     	return false;
+    }
+
+    /**
+     * @return Mage_Admin_Model_Resource_User_Collection
+     */
+    protected function _getAdminUserNames()
+    {
+        $adminUserNames = array();
+        foreach (Mage::getResourceModel('admin/user_collection') as $adminUser) {
+            /** @var Mage_Admin_Model_User $adminUser */
+            $adminUserNames[$adminUser->getId()] = $adminUser->getUsername() . ' [' . $adminUser->getFirstname() . ' ' . $adminUser->getLastname() . ']';
+        }
+        return $adminUserNames;
     }
 }
